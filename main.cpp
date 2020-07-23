@@ -6,7 +6,6 @@
 #include <algorithm>
 
 #include <fmt/core.h>
-#include <fmt/ranges.h>
 
 enum class DiskAttribute {
     Id_model,
@@ -34,7 +33,7 @@ std::vector<std::filesystem::path> get_files_path(const std::filesystem::path& p
     std::vector<std::filesystem::path> disks;
 
     for (const auto & d : std::filesystem::directory_iterator(path)) {
-        if (!d.path().filename().string().compare(0,start_with.size(), start_with, 0, start_with.size())) {
+        if (d.path().filename().string().compare(0,start_with.size(), start_with, 0, start_with.size()) == 0) {
             disks.emplace_back(d.path());
         }
     }
@@ -52,7 +51,7 @@ std::vector<std::filesystem::path> get_disk_attribute(const std::vector<std::fil
     std::vector<std::filesystem::path> out;
 
     struct udev *ud = udev_new();
-    struct stat statbuf;
+    struct stat statbuf{};
     struct udev_device     *device  = nullptr;
     struct udev_list_entry *entry   = nullptr;
 
@@ -73,7 +72,7 @@ std::vector<std::filesystem::path> get_disk_attribute(const std::vector<std::fil
 
                     while (nullptr != entry)  {
                         auto attribute = get_disk_attribute(attr);
-                        if (attribute.compare(udev_list_entry_get_name(entry)) == 0) {
+                        if (attribute == udev_list_entry_get_name(entry)) {
                             break;
                         }
 
