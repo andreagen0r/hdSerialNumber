@@ -22,6 +22,8 @@ std::string get_disk_attribute(const DiskAttribute attr) {
     case DiskAttribute::Id_serial_short:
         return "ID_SERIAL_SHORT";
     }
+
+    return {};
 }
 
 // Utils
