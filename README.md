@@ -1,4 +1,4 @@
-# hdSerialNumber
+# HD Serial Number
 Projeto para pegar o serial number dos HDs instalados
 
 ### Dependência
