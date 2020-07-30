@@ -96,9 +96,10 @@ std::vector<std::filesystem::path> get_disk_attribute(const std::vector<std::fil
 int main()
 {
     auto disks = get_files_path("/dev", "sd");
-    auto attrs = get_disk_attribute(disks, DiskAttribute::Id_serial_short);
+    auto attrs = get_disk_attribute(disks, DiskAttribute::Id_serial);
 
     std::vector<std::string> sn(attrs.begin(), attrs.end());
+    std::sort(sn.begin(), sn.end());
     sn.erase(std::unique(sn.begin(), sn.end()), sn.end());
 
     for (const auto& i : sn) {
